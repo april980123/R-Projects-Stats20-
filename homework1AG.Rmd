@@ -16,6 +16,7 @@ When you click the **Knit** button a document will be generated that includes bo
 ##Question 1
 ```{r}
 (16^5)/(6^8)
+(3/2)
 38646-5014
 17^(5/4)
 6^(2/3)
