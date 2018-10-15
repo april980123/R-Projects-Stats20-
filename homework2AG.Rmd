@@ -1,0 +1,117 @@
+---
+title: "homework 2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+##Question 1
+(a) 
+in mixed.b, the first vector inside the parenthesis contains both logical and numerical values. According to mode hirarchy, it will result in a vector of numerical values. Therefore, "TRUE" and "FALSE" inside the vector are converted to 1 and 2 respectively, and when they are combined with the character value "3", they are all converted to character values, therefore, it is shown as "1" "1" "0" "4" "0" "3".
+in mixed c, however, because logical, numerical and character values are combined altogether, all of the values are converted to character values directly. Therefore, it is shown as "TRUE" "TRUE" "FALSE" "4" "0" "3".
+```{r}
+#(b)
+mixed.d <- c(TRUE, c(TRUE, FALSE, 4,0),"3")
+mixed.d
+```
+##Question 2
+(a) in mixed.b, because the logical values (TRUE and FALSE) are first converted to number, and then converted to character, their values are converted to 1,0 respectively before they are applied with as.numeric function. Therefore, the function outputs 1,1,0,4,0,3. 
+    However, in mixed.c, the logical values inside the vector are converted to character directly because they are combined with character value "3", therefore, the as.numeric() function cannot recognize "TRUE" and "FALSE" and it shows them as "NA" with "NA introduced by coercion" warning message.
+
+(b) For the as.logical() function, character strings such as "T", "TRUE", "True", "true" are all regarded as true, "F", "FALSE", "False", "false" are all regarded as false, and all others as NA. In mixed.b, because the values are converted to "1","1","0","4","0","3", they all show up as NA after the as.logical() function. In mixed.c, the first three values are recognized and converted to either true or false, while the rest are all converted to NA.
+```{r}
+mixed.2 <- c(c(TRUE,TRUE,FALSE,4,0),"3")
+mixed.3 <- c(TRUE,TRUE,FALSE,4,0,"3")
+#(c) 
+as.logical(as.numeric(mixed.2))
+```
+
+##Question 3
+```{r}
+#(a)
+a <- rep(seq(0,4),rep(5,5))
+a
+#(b)
+b <- rep(seq(1,5),5)
+b
+#(c)
+c <- c(seq(1,5),seq(2,6),seq(3,7),seq(4,8),seq(5,9))
+c
+```
+
+##Question 4
+```{r}
+seq1 <- seq(0,10)
+sin(seq1*pi)
+```
+The built-in functions in R are vectorized, which means, applying an function to a vector will automatically apply the function to the individual element in the vector.
+
+##Question 5
+```{r}
+num <- c(5,6,2,3,4,10,8)
+#(a)
+num^2
+#(b)
+num-6
+#(c)
+(num-9)^2
+#(d)
+newnum <- num [-c(1,3)]
+newnum[2]
+#(e)
+rev(num)
+```
+
+##Question 6
+```{r}
+#(a)
+commute <- c(17,16,20,24,22,15,21,15,17,22)
+#(b)
+mean(commute)
+max(commute)
+min(commute)
+#(c)
+commute[4] = 18
+mean(commute)
+```
+
+##Question 7
+```{r}
+#(a)
+skew <- function (x) {
+  n <- length(x)
+  xbar <- mean(x)
+  devs <- x - xbar
+  squared_devs <- devs^2
+  cube_devs <- devs^3
+  sum_squared_devs <- sum(squared_devs)
+  sum_cube_devs <- sum(cube_devs)
+  coeff <- (sum_cube_devs*n^(1/2))/(sum_squared_devs^(3/2))
+  coeff
+}
+#(b)
+commute
+skew(commute)
+#(c)
+skew.one <- function (x) {
+  n <- length(x)
+  coeff <- (n^(1/2)*(sum(x^3)-3*mean(x)*sum(x^2)+2*n*(mean(x))^3))/((sum(x^2)-n*(mean(x))^2)^(3/2))
+  coeff
+}
+skew.one(commute)
+#The one pass function outputs the same result as the previous function
+#(d)
+commute*1e10
+skew(commute)
+skew.one(commute)
+#The two functions still output the same results as each other, because when you multiply the values by 1e10, they are still far away from each other in terms of values, so that the precision of the function is not affected.
+```
+
